@@ -1,1 +1,0 @@
-# EjercicioPractico_SebastianVasquez
