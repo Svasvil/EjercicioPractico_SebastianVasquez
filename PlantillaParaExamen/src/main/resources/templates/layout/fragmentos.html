@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="~{layout/plantilla :: head}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
+    <title>examen</title>
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <nav class="nav-fondo">
+        <div class="contenedor">
+            <div class="Navegacion-Principal">
+                <a href="#">Inicio</a>
+                <a href="#">Farmacias</a>
+                <a href="#">Servicios</a>
+                <a href="#">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección hero -->
+    <section class="hero">
+        <div class="Contenido-hero">
+            <h1 class="titulo">Bienvenidos a la Gestión de Farmacias</h1>
+            <p>Una plataforma innovadora para gestionar tu farmacia de manera eficiente</p>
+        </div>
+    </section>
+
+    <!-- Botón para agregar farmacia -->
+    <section th:fragment="botonesAgregar" class="py-4 text-center">
+        <button type="button" class="btn btn-primary shadow-sm" data-bs-toggle="modal" data-bs-target="#agregarFarmacia">
+            <i class="fas fa-plus"></i> Agregar Farmacia
+        </button>
+    </section>
+
+    <!-- Modal para agregar farmacia -->
+    <section th:fragment="agregarFarmacias">
+        <div id="agregarFarmacia" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar Farmacia</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form th:action="@{/farmacia/guardar}" th:object="${farmacia}" method="POST" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label fw-bold">Nombre</label>
+                                <input type="text" class="form-control border-primary" name="nombre" required />
+                            </div>
+                            <div class="mb-3">
+                                <label for="direccion" class="form-label fw-bold">Dirección</label>
+                                <input type="text" class="form-control border-primary" name="direccion" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="telefono" class="form-label fw-bold">Teléfono</label>
+                                <input type="text" class="form-control border-primary" name="telefono" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="imagenFile" class="form-label fw-bold">Imagen</label>
+                                <input type="file" class="form-control border-primary" name="imagenFile" />
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="activo" checked />
+                                <label class="form-check-label">Activo</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabla de listado de farmacias -->
+    <section th:fragment="listadoFarmacias" class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-4 text-primary">Listado de Farmacias</h2>
+                <table class="table table-hover table-striped shadow-sm">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="farmacia, contador : ${farmacias}">
+                            <td>[[${contador.count}]]</td>
+                            <td>[[${farmacia.nombre}]]</td>
+                            <td>[[${farmacia.direccion}]]</td>
+                            <td>[[${farmacia.telefono}]]</td>
+                            <td>
+                                <span th:text="${farmacia.activo} ? 'Activo' : 'Inactivo'"
+                                      class="badge"
+                                      th:classappend="${farmacia.activo} ? 'bg-success' : 'bg-danger'">
+                                </span>
+                            </td>
+                            <td>
+                                <a th:href="@{/farmacia/eliminar/}+${farmacia.idFarmacia}" class="btn btn-danger shadow-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                                <a th:href="@{/farmacia/modificar/}+${farmacia.idFarmacia}" class="btn btn-info shadow-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Examen Sebas Vasquez&copy; </p>
+    </footer>
+
+</body>
+</html>

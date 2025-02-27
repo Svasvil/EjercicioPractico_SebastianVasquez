@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/plantilla :: head}">
+    <link rel="stylesheet" href="/css/estilos.css">
+    <title>Examen</title>
+</head>
+<body>
+<header th:replace="~{layout/plantilla :: header}"/>
+
+<section th:fragment="homeContent">
+    <div class="nav-fondo">
+        <nav class="Navegacion-Principal contenedor">
+        </nav>
+
+        <section class="hero">
+            <div class="Contenido-hero">
+                <h2 class="titulo">Sobre nosotros</h2>
+                <p>Somos una farmacia comprometida con tu bienestar<br > ofreciendo productos de calidad y atención confiable <br>Nos esforzamos por brindarte un servicio cercano, accesible y profesional para cuidar de ti y tu familia.</p>
+            </div>
+        </section>
+    </div>
+</section>
+
+<footer th:replace="~{layout/plantilla :: footer}"/>
+</body>
+</html>
