@@ -1,4 +1,4 @@
-package practica2;
+package farmacia;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
